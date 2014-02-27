@@ -1,8 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import charmap as cm
+import sys
+import os
 
 if __name__ == "__main__":
-    cm.main()
+    # Solution from pip built-in package.
+    # Considered bad, but used oftenly.
+    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    import pytraycharmap.charmap
 
+    if len(sys.argv) < 2:
+        print("Menu file needed as argument")
+        sys.exit(-1)
+
+    pytraycharmap.charmap.go(sys.argv[1])

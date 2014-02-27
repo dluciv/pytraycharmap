@@ -12,7 +12,7 @@ from PyQt5 import QtGui, QtWidgets, QtCore
 
 __author__ = 'Dmitry V. Luciv'
 __license__ = 'WTFPL v2'
-__version__ = '0.0.0.1'
+__version__ = '0.0.0.2'
 
 class KeyEventFilter(QtCore.QObject):
     def __init__(self, notifiable):
@@ -36,7 +36,7 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
     SysTray icon with context menu of typographic symbols.
     """
 
-    def __init__(self, icon, parent, font):
+    def __init__(self, icon, parent, font, menufilename):
         super().__init__(icon, parent)
 
         # callback clear state
@@ -54,7 +54,7 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         menu.setLayoutDirection(QtCore.Qt.RightToLeft)
 
         # fill the menu
-        self.addChars(menu)
+        self.addChars(menu, menufilename)
 
         # exit action
         menu.addSeparator() # before exit
@@ -110,14 +110,13 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         else:
             print("WTF in menu?.. " + repr(contents))
 
-    def addChars(self, menu):
+    def addChars(self, menu, menufilename):
         """
         Read menu file and build menu with it
         """
         import yaml
 
-        # TODO: check argv
-        with open(sys.argv[1], encoding='utf-8') as yaf:
+        with open(menufilename, encoding='utf-8') as yaf:
             contents = yaml.load(yaf)
             self.processContents(menu, contents)
 
@@ -166,15 +165,15 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         if self.hoveredAction:
             self.hoveredAction.trigger()
 
-def main():
+def go(menufilename):
     app = QtWidgets.QApplication(sys.argv)
     w = QtWidgets.QMainWindow()
 
     path = os.path.dirname(os.path.abspath(__file__))
-    trayIcon = SystemTrayIcon(QtGui.QIcon(os.path.join(path, "trayicon.png")), w, app.font())
+    trayIcon = SystemTrayIcon(QtGui.QIcon(os.path.join(path, "trayicon.png")), w, app.font(), menufilename)
 
     trayIcon.show()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
-    main()
+    print("This is not standalone tool")

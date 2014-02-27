@@ -14,4 +14,6 @@ Left-clicking on tray icon shows curent clipboard content.
 
 You are free to modify menu in `menu/charmap.yaml` file.
 
-On UNiX-like system just run `run.sh &`
+On UNiX-like system just run `run.sh &`, on Windows `run.bat`.
+
+Assumes `PyQt5` and `yaml` python modules are installed.
