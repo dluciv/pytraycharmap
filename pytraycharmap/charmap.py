@@ -170,7 +170,7 @@ def go(menufilename):
     w = QtWidgets.QMainWindow()
 
     path = os.path.dirname(os.path.abspath(__file__))
-    trayIcon = SystemTrayIcon(QtGui.QIcon(os.path.join(path, "trayicon.png")), w, app.font(), menufilename)
+    trayIcon = SystemTrayIcon(QtGui.QIcon(os.path.join(path, "trayicon.svg")), w, app.font(), menufilename)
 
     trayIcon.show()
     sys.exit(app.exec_())
