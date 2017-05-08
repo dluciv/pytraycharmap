@@ -108,7 +108,7 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         elif type(contents) == str:
             self.addCharLeaf(menu, contents)
         else:
-            print("WTF in menu?.. " + repr(contents))
+            print("WTF in menu?.. " + repr(contents), file=sys.stderr)
 
     def addChars(self, menu, menufilename):
         """
@@ -117,8 +117,11 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         import yaml
 
         with open(menufilename, encoding='utf-8') as yaf:
-            contents = yaml.load(yaf)
-            self.processContents(menu, contents)
+            try:
+                contents = yaml.load(yaf)
+                self.processContents(menu, contents)
+            except Exception as e:
+                print("Failed to load menu: " + repr(contents), file=sys.stderr)
 
     def iconClicked(self, reason):
         """
