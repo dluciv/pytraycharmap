@@ -120,12 +120,14 @@ Characters:
     - Ѧ
     - Ѳ
     - Ѵ
+    - "\u0524"
     - ѡ
     - ѣ
     - ѥ
     - ѧ
     - ѳ
     - ѵ
+    - "\u0525"
   CyStressed:
     Upper:
       - А́
