@@ -79,11 +79,13 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         if type(self.sender()) != QtWidgets.QAction:
             self.clearcb = True
 
-    def addCharLeaf(self, menu, value):
+    def addCharLeaf(self, menu, value, menuitem_note=None):
         """
         Adds character item to menu
         """
-        vaction = QtWidgets.QAction(value, menu, checkable=False)
+        menuitem_text = f"{menuitem_note}: [{value}]" if menuitem_note else value
+        vaction = QtWidgets.QAction(menuitem_text, menu, checkable=False)
+        vaction.setData(value)
         menu.addAction(vaction)
         vaction.setFont(self.font)
 
@@ -95,13 +97,17 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         Recursively builds nested menus
         """
         if type(contents) == dict:
-            for k in contents.keys():
-                v = contents[k]
-                submenu = QtWidgets.QMenu(" " + k, menu) # to keep space
-                submenu.setLayoutDirection(QtCore.Qt.RightToLeft)
-                menu.addMenu(submenu)
-                self.processContents(submenu, v)
-                submenu.installEventFilter(self.efilter)
+            contents_items = list(contents.items())
+            if len(contents_items) == 1 and type(contents_items[0][1]) == str:  # Single char with comment
+                note, value = contents_items[0]
+                self.addCharLeaf(menu, value, note)
+            else:  # Submenu
+                for k, v in contents_items:
+                    submenu = QtWidgets.QMenu(" " + k, menu) # to keep space
+                    submenu.setLayoutDirection(QtCore.Qt.RightToLeft)
+                    menu.addMenu(submenu)
+                    self.processContents(submenu, v)
+                    submenu.installEventFilter(self.efilter)
         elif type(contents) == list:
             for e in contents:
                 self.processContents(menu, e)
@@ -152,8 +158,8 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         """
         Action handler for character click
         """
-        action = self.sender()
-        self.clipChar(action.text())
+        action: QtWidgets.QAction = self.sender()
+        self.clipChar(action.data())
 
     def charHovered(self):
         """
