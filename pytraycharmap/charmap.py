@@ -8,11 +8,12 @@ multiple char selection with any key while hovered.
 
 import os
 import sys
+import yaml
 from PyQt6 import QtGui, QtWidgets, QtCore
 
 __author__ = 'Dmitry V. Luciv'
 __license__ = 'WTFPL v2'
-__version__ = '0.0.0.2'
+__version__ = '0.0.1.2'
 
 class KeyEventFilter(QtCore.QObject):
     def __init__(self, notifiable):
@@ -31,13 +32,13 @@ class KeyEventFilter(QtCore.QObject):
 
         return result
 
-class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
+class TypographyMenu(QtWidgets.QMenu):
     """
-    SysTray icon with context menu of typographic symbols.
+    Context menu of typographic symbols
     """
 
-    def __init__(self, icon, parent, font, menufilename):
-        super().__init__(icon, parent)
+    def __init__(self, parent, font, menufilename):
+        super().__init__(parent)
 
         # callback clear state
         self.clearcb = True
@@ -50,31 +51,20 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         self.font = QtGui.QFont(font.family(), 12)
 
         # right now for right-handed users with tray in bottom-right
-        menu = QtWidgets.QMenu(parent)
-        menu.setLayoutDirection(QtCore.Qt.LayoutDirection.RightToLeft)
+        self.setLayoutDirection(QtCore.Qt.LayoutDirection.RightToLeft)
 
         # fill the menu
-        self.addChars(menu, menufilename)
+        self.addChars(menufilename)
 
-        menu.addSeparator()
+        self.addSeparator()
  
-        # clearcb action
-        clearcbAction = menu.addAction("Clear CB")
-        clearcbAction.triggered.connect(self.clearcbClicked)
-
-        # exit action
-        exitAction = menu.addAction("Exit")
-        exitAction.triggered.connect(self.exitClicked)
-
-        # add context menu to icon
-        self.setContextMenu(menu)
-
-        # ballon on icon click
-        self.activated.connect(self.iconClicked)
-
         # clipboard & its handler
         self.clip = QtWidgets.QApplication.clipboard()
         self.clip.dataChanged.connect(self.clipchanged)
+
+        # clearcb action
+        clearcbAction = self.addAction("Clear CB")
+        clearcbAction.triggered.connect(self.clearcbClicked)
 
     def clipchanged(self):
         """
@@ -121,38 +111,20 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         else:
             print("WTF in menu?.. " + repr(contents), file=sys.stderr)
 
-    def addChars(self, menu, menufilename):
+    def addChars(self, menufilename):
         """
         Read menu file and build menu with it
         """
-        import yaml
-
         with open(menufilename, encoding='utf-8') as yaf:
             try:
-                contents = yaml.load(yaf)
-                self.processContents(menu, contents)
+                contents = yaml.load(yaf, Loader=yaml.FullLoader)
+                self.processContents(self, contents)
             except Exception as e:
-                print("Failed to load menu: " + repr(contents), file=sys.stderr)
-
-    def iconClicked(self, reason):
-        """
-        SysTray icon clicking handler
-        """
-        # as context menu is needed for main purpose
-        if reason != QtWidgets.QSystemTrayIcon.ActivationReason.Context:
-            self.showMessage("Event: " + str(reason), self.clip.text())
+                print("Failed to initialize menu: " + repr(e), file=sys.stderr)
 
     def clearcbClicked(self):
         self.clip.clear()
         self.clearcb = False
-
-    def exitClicked(self):
-        """
-        Exit handler
-        """
-        self.hide()
-        print("Bye!")
-        sys.exit(0)
 
     def clipChar(self, c):
         """
@@ -183,12 +155,55 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         if self.hoveredAction:
             self.hoveredAction.trigger()
 
+class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
+    """
+    SysTray icon with context menu of typographic symbols.
+    """
+
+    def __init__(self, icon, parent, font, menufilename):
+        super().__init__(icon, parent)
+
+        # callback clear state
+        self.clearcb = True
+
+        # right now for right-handed users with tray in bottom-right
+        menu = TypographyMenu(parent, font, menufilename)
+
+        # exit action
+        exitAction = menu.addAction("Exit")
+        exitAction.triggered.connect(self.exitClicked)
+
+        # add context menu to icon
+        self.setContextMenu(menu)
+
+        # ballon on icon click
+        self.activated.connect(self.iconClicked)
+
+    def iconClicked(self, reason):
+        """
+        SysTray icon clicking handler
+        """
+        pass
+        # as context menu is needed for main purpose
+        # if reason != QtWidgets.QSystemTrayIcon.ActivationReason.Context:
+        #     self.showMessage("Event: " + str(reason), self.clip.text())
+
+    def exitClicked(self):
+        """
+        Exit handler
+        """
+        self.hide()
+        print("Bye!")
+        sys.exit(0)
+
 def go(menufilename):
     app = QtWidgets.QApplication(sys.argv)
     w = QtWidgets.QMainWindow()
 
     path = os.path.dirname(os.path.abspath(__file__))
-    trayIcon = SystemTrayIcon(QtGui.QIcon(os.path.join(path, "trayicon.svg")), w, app.font(), menufilename)
+    icon = QtGui.QIcon(os.path.join(path, "trayicon.svg"))
+    app.setWindowIcon(icon)  # Envs with smart taskbars like Win10 and Mac OS
+    trayIcon = SystemTrayIcon(icon, w, app.font(), menufilename)
 
     trayIcon.show()
     sys.exit(app.exec())
