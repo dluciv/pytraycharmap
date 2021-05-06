@@ -22,8 +22,8 @@ Installation
 `pip3 install -r requirements.txt` or `pip3 install --user -r requirements.txt`
 or use system package manager depending on your environment.
 
-For Linux and Windows
----------------------
+For Linux and Windows users
+---------------------------
 
 Add `run.sh` or `run.bat` script to run at your session startup. In the both Linux and
 Windows it is usually easy enough.
