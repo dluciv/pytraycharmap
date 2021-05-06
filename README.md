@@ -16,4 +16,8 @@ You are free to modify menu in `menu/charmap.yaml` file.
 
 On UNiX-like system just run `run.sh &`, on Windows `run.bat`.
 
-Assumes `PyQt5` and `yaml` python modules are installed.
+Installation
+============
+
+`pip3 install -r requirements.txt` or `pip3 install --user -r requirements.txt`
+or use system package manager depending on your environment.

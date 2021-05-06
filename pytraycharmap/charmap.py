@@ -8,7 +8,7 @@ multiple char selection with any key while hovered.
 
 import os
 import sys
-from PyQt5 import QtGui, QtWidgets, QtCore
+from PyQt6 import QtGui, QtWidgets, QtCore
 
 __author__ = 'Dmitry V. Luciv'
 __license__ = 'WTFPL v2'
@@ -26,7 +26,7 @@ class KeyEventFilter(QtCore.QObject):
         # but lets be as graceful as possible.
         result = super(KeyEventFilter, self).eventFilter(receiver, event)
 
-        if(event.type() == QtCore.QEvent.KeyPress):
+        if(event.type() == QtCore.QEvent.Type.KeyPress):
             self.notifiable(event)
 
         return result
@@ -51,13 +51,18 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
 
         # right now for right-handed users with tray in bottom-right
         menu = QtWidgets.QMenu(parent)
-        menu.setLayoutDirection(QtCore.Qt.RightToLeft)
+        menu.setLayoutDirection(QtCore.Qt.LayoutDirection.RightToLeft)
 
         # fill the menu
         self.addChars(menu, menufilename)
 
+        menu.addSeparator()
+ 
+        # clearcb action
+        clearcbAction = menu.addAction("Clear CB")
+        clearcbAction.triggered.connect(self.clearcbClicked)
+
         # exit action
-        menu.addSeparator() # before exit
         exitAction = menu.addAction("Exit")
         exitAction.triggered.connect(self.exitClicked)
 
@@ -76,7 +81,7 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         Clipboard listener
         """
         # Is clipboard changed from outside? Ok, clean it next time.
-        if type(self.sender()) != QtWidgets.QAction:
+        if type(self.sender()) != QtGui.QAction:
             self.clearcb = True
 
     def addCharLeaf(self, menu, value, menuitem_note=None):
@@ -84,7 +89,7 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         Adds character item to menu
         """
         menuitem_text = f"{menuitem_note}: [{value}]" if menuitem_note else value
-        vaction = QtWidgets.QAction(menuitem_text, menu, checkable=False)
+        vaction = QtGui.QAction(menuitem_text, menu, checkable=False)
         vaction.setData(value)
         menu.addAction(vaction)
         vaction.setFont(self.font)
@@ -104,7 +109,7 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
             else:  # Submenu
                 for k, v in contents_items:
                     submenu = QtWidgets.QMenu(" " + k, menu) # to keep space
-                    submenu.setLayoutDirection(QtCore.Qt.RightToLeft)
+                    submenu.setLayoutDirection(QtCore.Qt.LayoutDirection.RightToLeft)
                     menu.addMenu(submenu)
                     self.processContents(submenu, v)
                     submenu.installEventFilter(self.efilter)
@@ -134,8 +139,12 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         SysTray icon clicking handler
         """
         # as context menu is needed for main purpose
-        if reason != QtWidgets.QSystemTrayIcon.Context:
+        if reason != QtWidgets.QSystemTrayIcon.ActivationReason.Context:
             self.showMessage("Event: " + str(reason), self.clip.text())
+
+    def clearcbClicked(self):
+        self.clip.clear()
+        self.clearcb = False
 
     def exitClicked(self):
         """
@@ -158,7 +167,7 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         """
         Action handler for character click
         """
-        action: QtWidgets.QAction = self.sender()
+        action = self.sender()
         self.clipChar(action.data())
 
     def charHovered(self):
@@ -182,7 +191,7 @@ def go(menufilename):
     trayIcon = SystemTrayIcon(QtGui.QIcon(os.path.join(path, "trayicon.svg")), w, app.font(), menufilename)
 
     trayIcon.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 
 if __name__ == '__main__':
     print("This is not standalone tool")
