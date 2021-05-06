@@ -37,7 +37,7 @@ class TypographyMenu(QtWidgets.QMenu):
     Context menu of typographic symbols
     """
 
-    def __init__(self, parent, font, menufilename):
+    def __init__(self, parent, app, menufilename):
         super().__init__(parent)
 
         # callback clear state
@@ -47,8 +47,9 @@ class TypographyMenu(QtWidgets.QMenu):
         self.efilter = KeyEventFilter(self.actionKeyPressed)
         self.hoveredAction = None
 
-        # font for menu leafs with letters
-        self.font = QtGui.QFont(font.family(), 12)
+        # fonts
+        font = app.font()
+        self.leaf_font = QtGui.QFont(font.family(), font.pointSize() + 2)
 
         # right now for right-handed users with tray in bottom-right
         self.setLayoutDirection(QtCore.Qt.LayoutDirection.RightToLeft)
@@ -59,14 +60,15 @@ class TypographyMenu(QtWidgets.QMenu):
         self.addSeparator()
  
         # clipboard & its handler
-        self.clip = QtWidgets.QApplication.clipboard()
-        self.clip.dataChanged.connect(self.clipchanged)
+        # difficulties on Mac OS https://doc.qt.io/qt-6/qclipboard.html#dataChanged
+        self.clip = app.clipboard()
+        self.clip.dataChanged.connect(self.clipChanged)
 
         # clearcb action
         clearcbAction = self.addAction("Clear CB")
         clearcbAction.triggered.connect(self.clearcbClicked)
 
-    def clipchanged(self):
+    def clipChanged(self):
         """
         Clipboard listener
         """
@@ -82,7 +84,7 @@ class TypographyMenu(QtWidgets.QMenu):
         vaction = QtGui.QAction(menuitem_text, menu, checkable=False)
         vaction.setData(value)
         menu.addAction(vaction)
-        vaction.setFont(self.font)
+        vaction.setFont(self.leaf_font)
 
         vaction.triggered.connect(self.charTriggered)
         vaction.hovered.connect(self.charHovered)
@@ -91,22 +93,22 @@ class TypographyMenu(QtWidgets.QMenu):
         """
         Recursively builds nested menus
         """
-        if type(contents) == dict:
+        if isinstance(contents, dict):
             contents_items = list(contents.items())
             if len(contents_items) == 1 and type(contents_items[0][1]) == str:  # Single char with comment
                 note, value = contents_items[0]
                 self.addCharLeaf(menu, value, note)
             else:  # Submenu
                 for k, v in contents_items:
-                    submenu = QtWidgets.QMenu(" " + k, menu) # to keep space
+                    submenu = QtWidgets.QMenu(" " + k, self) # to keep space
                     submenu.setLayoutDirection(QtCore.Qt.LayoutDirection.RightToLeft)
                     menu.addMenu(submenu)
                     self.processContents(submenu, v)
                     submenu.installEventFilter(self.efilter)
-        elif type(contents) == list:
+        elif isinstance(contents, list):
             for e in contents:
                 self.processContents(menu, e)
-        elif type(contents) == str:
+        elif isinstance(contents, str):
             self.addCharLeaf(menu, contents)
         else:
             print("WTF in menu?.. " + repr(contents), file=sys.stderr)
@@ -160,14 +162,16 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
     SysTray icon with context menu of typographic symbols.
     """
 
-    def __init__(self, icon, parent, font, menufilename):
-        super().__init__(icon, parent)
+    def __init__(self, icon, parent, app, menufilename):
+        super().__init__(icon)
+
+        self.parent = parent
 
         # callback clear state
         self.clearcb = True
 
         # right now for right-handed users with tray in bottom-right
-        menu = TypographyMenu(parent, font, menufilename)
+        menu = TypographyMenu(parent, app, menufilename)
 
         # exit action
         exitAction = menu.addAction("Exit")
@@ -184,6 +188,10 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         SysTray icon clicking handler
         """
         pass
+        # self.parent.show()
+        # self.parent.setFocus()
+        # self.parent.hide()
+
         # as context menu is needed for main purpose
         # if reason != QtWidgets.QSystemTrayIcon.ActivationReason.Context:
         #     self.showMessage("Event: " + str(reason), self.clip.text())
@@ -197,16 +205,27 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         sys.exit(0)
 
 def go(menufilename):
-    app = QtWidgets.QApplication(sys.argv)
-    w = QtWidgets.QMainWindow()
-
     path = os.path.dirname(os.path.abspath(__file__))
     icon = QtGui.QIcon(os.path.join(path, "trayicon.svg"))
+
+    app = QtWidgets.QApplication(sys.argv)
     app.setWindowIcon(icon)  # Envs with smart taskbars like Win10 and Mac OS
-    trayIcon = SystemTrayIcon(icon, w, app.font(), menufilename)
+
+    # Not sure window is ever needed on all platforms
+    w = QtWidgets.QMainWindow()
+    w.hide()
+
+    clippoard = app.clipboard()
+
+    trayIcon = SystemTrayIcon(
+        icon,
+        w, # No window and None usually work ok too
+        app,
+        menufilename
+    )
 
     trayIcon.show()
     sys.exit(app.exec())
 
 if __name__ == '__main__':
-    print("This is not standalone tool")
+    print("This is not standalone tool, run as module")
