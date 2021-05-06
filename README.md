@@ -21,3 +21,29 @@ Installation
 
 `pip3 install -r requirements.txt` or `pip3 install --user -r requirements.txt`
 or use system package manager depending on your environment.
+
+For Linux and Windows
+---------------------
+
+Add `run.sh` or `run.bat` script to run at your session startup. In the both Linux and
+Windows it is usually easy enough.
+
+For Mac OS users
+----------------
+
+For Mac OS users, it can be actually painful to run shell script at user login,
+because the environment designed to always keep you in a sort of straitjacket.
+
+Having [Python 3 installed with Homebrew](https://formulae.brew.sh/formula/python@3.9),
+I succeeded by creation of anautomation object
+[as described here](https://stackoverflow.com/a/6445525/539470),
+with following shell script to do it.
+
+```
+# Setup environment, I recommend you to have this file if you still do not
+. $HOME/.bash_profile
+# Now you can run your proper python3, in my case, /usr/local/bin/python3
+
+# Run the script
+$HOME/....my repo path..../pytraycharmap/run.sh
+```
