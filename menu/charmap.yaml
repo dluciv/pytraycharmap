@@ -244,6 +244,7 @@ Emoji:
   - Vomit: "\U0001F922"
   - Bearded: "\U0001F9D4"
   - "Male": "\U00002642"
+  - "White Bearded": "\U0001F9D4\U0001F3FB"
   - "White Bearded Male": "\U0001F9D4\U0001F3FB\U0000200D\U00002642"
   - "Advanced":
     - "White Bearded Male G": "\U0001F9D4\U0001F3FB\U0000200D\U00002642\U0000FE0F"
