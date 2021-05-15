@@ -15,4 +15,5 @@ if __name__ == "__main__":
         print("Menu file needed as argument")
         sys.exit(-1)
 
-    pytraycharmap.charmap.go(sys.argv[1])
+    app = pytraycharmap.charmap.TrayCharMapApp(sys.argv[1])
+    sys.exit(app.exec())

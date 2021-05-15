@@ -45,7 +45,7 @@ with following shell script to do it.
 # Now you can run your proper python3, in my case, /usr/local/bin/python3
 
 # Run the script
-$HOME/....my repo path..../pytraycharmap/run.sh 1>/dev/null 2>&1 &
+$HOME/{....repo path....}/run.sh 1>/dev/null 2>&1 &
 # Output redirects and background are needed to tell
 # the OS that it is safe to finish the script itself
 ```
