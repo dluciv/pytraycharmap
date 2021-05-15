@@ -244,8 +244,11 @@ Emoji:
   - Vomit: "\U0001F922"
   - Bearded: "\U0001F9D4"
   - "Male": "\U00002642"
-  - "White Bearded Male": "\U0001F9D4\U0001F3FB\U0000200D\U00002642\U0000FE0F"
-  - "Mods and Joins":
+  - "White Bearded Male": "\U0001F9D4\U0001F3FB\U0000200D\U00002642"
+  - "Advanced":
+    - "White Bearded Male G": "\U0001F9D4\U0001F3FB\U0000200D\U00002642\U0000FE0F"
+    - "White Bearded Male T": "\U0001F9D4\U0001F3FB\U0000200D\U00002642\U0000FE0E"
     - "White skin": "\U0001F3FB"
     - ZWJ: "\U0000200D"
-    - "Variation selector": "\U0000FE0F"
+    - "Textual variation": "\U0000FE0E"
+    - "Colorful variation": "\U0000FE0F"
