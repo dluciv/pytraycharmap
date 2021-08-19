@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    color-rendering="auto"
    color-interpolation="auto"
    text-rendering="auto"
@@ -18,11 +11,19 @@
    image-rendering="auto"
    id="svg2998"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="1.1 (c4e8f9ed74, 2021-05-24)"
    width="163.29292"
    height="163.8284"
    sodipodi:docname="trayicon.svg"
-   style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
+   style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <metadata
      id="metadata3009">
     <rdf:RDF>
@@ -43,8 +44,8 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1536"
-     inkscape:window-height="803"
+     inkscape:window-width="1920"
+     inkscape:window-height="1023"
      id="namedview3007"
      showgrid="false"
      fit-margin-top="2"
@@ -52,15 +53,70 @@
      fit-margin-right="2"
      fit-margin-bottom="2"
      inkscape:zoom="2.8284271"
-     inkscape:cx="19.25035"
-     inkscape:cy="69.235363"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:cx="-53.209786"
+     inkscape:cy="69.296465"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg2998" />
+     inkscape:current-layer="svg2998"
+     inkscape:pagecheckerboard="0" />
   <!--Unicode Character 'CYRILLIC CAPITAL LETTER LITTLE YUS' (U+0466)-->
   <defs
-     id="genericDefs" />
+     id="genericDefs">
+    <linearGradient
+       id="linearGradient825"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#ff0000;stop-opacity:1;"
+         offset="0"
+         id="stop823" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient825"
+       id="linearGradient827"
+       x1="40.198591"
+       y1="83.37955"
+       x2="123.76723"
+       y2="83.37955"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter1495"
+       x="-0.028718906"
+       y="-0.017364375"
+       width="1.1770999"
+       height="1.1070803">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood1485" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite1487" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="1"
+         result="blur"
+         id="feGaussianBlur1489" />
+      <feOffset
+         dx="10"
+         dy="10"
+         result="offset"
+         id="feOffset1491" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite1493" />
+    </filter>
+  </defs>
   <rect
      id="rect3055"
      width="155.29292"
@@ -70,7 +126,7 @@
      ry="26"
      style="fill:#d8d8d8;fill-opacity:0.52127659;stroke:#000000;stroke-width:4;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none" />
   <path
-     style="fill:#ff0000;fill-opacity:1;stroke:none"
+     style="fill:url(#linearGradient827);fill-opacity:1;stroke:none;filter:url(#filter1495)"
      d="m 41.990273,150.72579 c -5.45657,-4.75325 3.13807,-11.12377 4.76965,-16.07408 8.5415,-14.85626 16.14366,-30.41914 21.14884,-46.844606 2.52026,-6.2199 -2.23163,-11.94063 -4.06656,-17.6413 -7.13375,-16.94438 -15.71048,-33.29492 -22.07444,-50.54806 2.18618,-5.65079 10.91637,-2.39941 15.82131,-3.29282 7.46718,-1.63248 9.53691,5.84907 11.59387,11.34389 4.12173,9.7893 7.45481,20.01873 12.86558,29.1906 3.72151,-2.73921 4.53644,-10.75511 6.78619,-15.74534 3.61504,-9.25416 7.10817,-19.98721 16.126687,-25.37054 5.86798,-2.97154 13.33909,-1.14338 18.26405,2.82536 2.44877,5.51929 -4.26353,10.66829 -3.12404,16.76963 0.35946,4.66413 -1.248,13.1537 -7.30138,8.08225 -4.81488,-3.87655 -11.3775,-1.65768 -14.428877,3.25158 -4.84925,6.95764 -7.52105,15.21821 -9.77616,23.32162 0.79976,5.68885 4.00075,10.87894 6.02649,16.24977 8.474817,19.500786 18.016627,38.506946 27.522747,57.514866 3.39265,4.26307 1.26157,9.91819 -4.63984,8.50742 -5.45923,-0.7717 -13.15936,1.85345 -17.08419,-2.77819 -9.215537,-16.82128 -15.904537,-34.92663 -25.161037,-51.705356 -4.54454,9.329156 -6.70907,19.649706 -10.58692,29.273846 -3.22492,7.87353 -5.85937,16.59427 -12.22139,22.57346 -2.9462,2.29661 -7.214,3.77135 -10.46058,1.096 z"
      id="path3051"
      inkscape:connector-curvature="0" />
