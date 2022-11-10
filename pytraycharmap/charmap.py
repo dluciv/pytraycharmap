@@ -191,7 +191,7 @@ class TrayCharMapApp(QtWidgets.QApplication):
 
     def initUI(self)-> None:
         path = os.path.dirname(os.path.abspath(__file__))
-        icon = QtGui.QIcon(os.path.join(path, "trayicon.png"))
+        icon = QtGui.QIcon(os.path.join(path, "trayicon.svg"))
 
         self.setWindowIcon(icon)  # Envs with smart taskbars like Win10 and Mac OS
 
