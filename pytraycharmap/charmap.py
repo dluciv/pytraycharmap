@@ -8,8 +8,11 @@ multiple char selection with any key while hovered.
 
 import os
 import sys
+import subprocess
 import yaml
+from abc import ABC, abstractmethod
 from PyQt6 import QtGui, QtWidgets, QtCore
+from PyQt6.QtCore import QThread
 
 __author__ = 'Dmitry V. Luciv'
 __license__ = 'WTFPL v2'
@@ -111,13 +114,13 @@ class TypographyMenu(QtWidgets.QMenu):
                 print("Failed to initialize menu: " + repr(e), file=sys.stderr)
 
     def clearcbClicked(self):
-        self.app.clearCB()
+        self.app.backend.clear_input()
 
     def clipChar(self, c):
         """
         Adds character to clipboard or stores it, if clipboard was modified
         """
-        self.app.clipChar(c)
+        self.app.backend.input_str(c)
 
     def charTriggered(self):
         """
@@ -181,13 +184,75 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         sys.exit(0)
 
 
+class InputBackend(ABC):
+    @abstractmethod
+    def input_str(self, c: str) -> None:
+        ...
+
+    @abstractmethod
+    def clear_input(self) -> None:
+        ...
+
+class ClipboardBackend(InputBackend):
+    def __init__(self, clipboard):
+        super().__init__()
+        self.clipboard = clipboard
+        self.clipvalue = ""
+
+    def clear_input(self)-> None:
+        self.clipboard.setText("")
+        self.clipvalue = ""
+    
+    def input_str(self, c: str)-> None:
+        # On Mac OS we can't monitor clipboard with
+        # self.clipboard.dataChanged.connect(...handler...)
+        # https://doc.qt.io/qt-6/qclipboard.html#dataChanged
+
+        if self.clipboard.text() == self.clipvalue:  # no outside modifications
+            self.clipvalue += c
+        else:  # clipboard modified by another app
+            self.clipvalue = c
+        self.clipboard.setText(self.clipvalue)
+
+class WTypeBackend(InputBackend):
+    """
+    wtype backend for Wayland, usually wlroots
+    """
+    class TypingThread(QThread):
+        def __init__(self, key: str):
+            super().__init__()
+            self.key = key
+        
+        def run(self):
+            result = subprocess.run(["wtype", "-s", "100", self.key], capture_output=True, text=True)
+            if result.returncode != 0:
+                print(result.stdout)
+                print(result.stderr, file=sys.stderr)
+
+    def __init__(self):
+        super().__init__()
+
+    def input_str(self, c: str) -> None:
+        WTypeBackend.TypingThread(c).run()
+
+    def clear_input(self)-> None:
+        print("Input clear is not supported for wtype backend", file=sys.stderr)
+
 class TrayCharMapApp(QtWidgets.QApplication):
+    def detect_backend(self) -> None:
+        xdg_current_desktop = os.environ.get('XDG_CURRENT_DESKTOP')
+        if xdg_current_desktop == 'sway' or xdg_current_desktop == 'wlroots':
+            result = subprocess.run(["which", "wtype"], capture_output=True)
+            if result.returncode == 0:
+                return WTypeBackend()
+        
+        return ClipboardBackend(self.clipboard())
+
     def __init__(self, menufilename: str) -> None:
         super().__init__(sys.argv)
         self.menufilename = menufilename
         self.initUI()
-        self.clippoard = self.clipboard()
-        self.clipvalue = ""
+        self.backend = self.detect_backend()
 
     def initUI(self)-> None:
         path = os.path.dirname(os.path.abspath(__file__))
@@ -203,21 +268,6 @@ class TrayCharMapApp(QtWidgets.QApplication):
         )
 
         self.trayIcon.show()
-    
-    def clearCB(self)-> None:
-        self.clippoard.setText("")
-        self.clipvalue = ""
-    
-    def clipChar(self, c: str)-> None:
-        # On Mac OS we can't monitor clipboard with
-        # self.clipboard.dataChanged.connect(...handler...)
-        # https://doc.qt.io/qt-6/qclipboard.html#dataChanged
-
-        if self.clippoard.text() == self.clipvalue:  # no outside modifications
-            self.clipvalue += c
-        else:  # clipboard modified by another app
-            self.clipvalue = c
-        self.clippoard.setText(self.clipvalue)
 
     def exec(self)-> object:
         return super().exec()
