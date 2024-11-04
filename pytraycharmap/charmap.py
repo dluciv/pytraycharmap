@@ -35,6 +35,27 @@ class KeyEventFilter(QtCore.QObject):
 
         return result
 
+class MouseEventFilter(QtCore.QObject):
+    """
+    Not working yet...
+    """
+    def __init__(self, notifiable):
+        super().__init__()
+        self.notifiable = notifiable
+
+    def eventFilter(self, receiver, event):
+        result = super(MouseEventFilter, self).eventFilter(receiver, event)
+
+        # print(self, receiver, event)
+
+        if event.type() == QtCore.QEvent.Type.MouseButtonPress:
+            if event.button() == QtCore.Qt.MouseButtons.LeftButton:
+                print("Left button clicked")
+            elif event.button() == QtCore.Qt.MouseButtons.RightButton:
+                print("Right button clicked")
+
+        return result
+
 class TypographyMenu(QtWidgets.QMenu):
     """
     Context menu of typographic symbols
@@ -43,8 +64,10 @@ class TypographyMenu(QtWidgets.QMenu):
     def __init__(self, parent, app, menufilename):
         super().__init__(parent)
 
-        # event filter to handle key press while hovering menu
-        self.efilter = KeyEventFilter(self.actionKeyPressed)
+        # event filter to handle presses while hovering menu
+        self.kefilter = KeyEventFilter(self.actionKeyPressed)
+        self.mefilter = MouseEventFilter(self.mouseButtonPressed)
+
         self.hoveredAction = None
 
         # fonts
@@ -58,7 +81,7 @@ class TypographyMenu(QtWidgets.QMenu):
         self.addChars(menufilename)
 
         self.addSeparator()
- 
+
         self.app = app
 
         # clearcb action
@@ -93,7 +116,8 @@ class TypographyMenu(QtWidgets.QMenu):
                     submenu.setLayoutDirection(QtCore.Qt.LayoutDirection.RightToLeft)
                     menu.addMenu(submenu)
                     self.processContents(submenu, v)
-                    submenu.installEventFilter(self.efilter)
+                    submenu.installEventFilter(self.kefilter)
+                    submenu.installEventFilter(self.mefilter)
         elif isinstance(contents, list):
             for e in contents:
                 self.processContents(menu, e)
@@ -114,13 +138,13 @@ class TypographyMenu(QtWidgets.QMenu):
                 print("Failed to initialize menu: " + repr(e), file=sys.stderr)
 
     def clearcbClicked(self):
-        self.app.backend.clear_input()
+        self.app.backend1.clear_input()
 
     def clipChar(self, c):
         """
         Adds character to clipboard or stores it, if clipboard was modified
         """
-        self.app.backend.input_str(c)
+        self.app.backend1.input_str(c)
 
     def charTriggered(self):
         """
@@ -136,6 +160,13 @@ class TypographyMenu(QtWidgets.QMenu):
         self.hoveredAction = self.sender()
 
     def actionKeyPressed(self, event):
+        """
+        Called by key listener instance above
+        """
+        if self.hoveredAction:
+            self.hoveredAction.trigger()
+
+    def mouseButtonPressed(self, event):
         """
         Called by key listener instance above
         """
@@ -202,7 +233,7 @@ class ClipboardBackend(InputBackend):
     def clear_input(self)-> None:
         self.clipboard.setText("")
         self.clipvalue = ""
-    
+
     def input_str(self, c: str)-> None:
         # On Mac OS we can't monitor clipboard with
         # self.clipboard.dataChanged.connect(...handler...)
@@ -222,7 +253,7 @@ class WTypeBackend(InputBackend):
         def __init__(self, key: str):
             super().__init__()
             self.key = key
-        
+
         def run(self):
             result = subprocess.run(["wtype", "-s", "100", self.key], capture_output=True, text=True)
             if result.returncode != 0:
@@ -245,14 +276,18 @@ class TrayCharMapApp(QtWidgets.QApplication):
             result = subprocess.run(["which", "wtype"], capture_output=True)
             if result.returncode == 0:
                 return WTypeBackend()
-        
+
         return ClipboardBackend(self.clipboard())
 
     def __init__(self, menufilename: str) -> None:
         super().__init__(sys.argv)
         self.menufilename = menufilename
         self.initUI()
-        self.backend = self.detect_backend()
+
+        self.backend1 = self.detect_backend()
+        self.backend2 = self.backend1 \
+            if isinstance(self.backend1, ClipboardBackend) \
+            else ClipboardBackend(self.clipboard())
 
     def initUI(self)-> None:
         path = os.path.dirname(os.path.abspath(__file__))
