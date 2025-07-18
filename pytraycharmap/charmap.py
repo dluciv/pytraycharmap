@@ -245,6 +245,42 @@ class ClipboardBackend(InputBackend):
             self.clipvalue = c
         self.clipboard.setText(self.clipvalue)
 
+
+class CCCPBackend(InputBackend):
+    def __init__(self, use_primary: bool):
+        super().__init__()
+        self._use_primary = use_primary
+        self._buffer_bytes = b''
+
+    def _get_buffer(self)-> str:
+        cccp = subprocess.run(
+            ['cccp', '--primary', 'p'] if self._use_primary else ['cccp', 'p'],
+            capture_output=True #, check=True
+        )
+        return cccp.stdout
+
+    def clear_input(self)-> None:
+        subprocess.run(
+            ['cccp', '--primary', 'c'] if self._use_primary else ['cccp', 'c'],
+            input=b'' #, check=True
+        )
+
+    def input_str(self, c: str)-> None:
+        b = c.encode('utf-8')
+
+        if self._get_buffer() == self._buffer_bytes:  # no outside modifications
+            subprocess.run(
+                ['cccp', '--primary', '--append', 'c'] if self._use_primary else ['cccp', '--append', 'c'],
+                input=b #, check=True
+            )
+            self._buffer_bytes += b
+        else:  # clipboard modified by another app
+            subprocess.run(
+                ['cccp', '--primary', 'c'] if self._use_primary else ['cccp', 'c'],
+                input=b #, check=True
+            )
+            self._buffer_bytes = b
+
 class WTypeBackend(InputBackend):
     """
     wtype backend for Wayland, usually wlroots
@@ -271,6 +307,12 @@ class WTypeBackend(InputBackend):
 
 class TrayCharMapApp(QtWidgets.QApplication):
     def detect_backend(self) -> None:
+        if len(sys.argv) > 2:
+            if sys.argv[2] == 'cccp-p':
+                return CCCPBackend(True)
+            elif sys.argv[2] == 'cccp-c':
+                return CCCPBackend(False)
+
         xdg_current_desktop = os.environ.get('XDG_CURRENT_DESKTOP')
         if xdg_current_desktop == 'sway' or xdg_current_desktop == 'wlroots':
             result = subprocess.run(["which", "wtype"], capture_output=True)
