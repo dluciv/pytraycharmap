@@ -254,14 +254,14 @@ class CCCPBackend(InputBackend):
 
     def _get_buffer(self)-> str:
         cccp = subprocess.run(
-            ['cccp', '--primary', 'p'] if self._use_primary else ['cccp', 'p'],
+            ['cccp'] + (['--primary'] if self._use_primary else []) + ['p'],
             capture_output=True #, check=True
         )
         return cccp.stdout
 
     def clear_input(self)-> None:
         subprocess.run(
-            ['cccp', '--primary', 'c'] if self._use_primary else ['cccp', 'c'],
+            ['cccp'] + (['--primary'] if self._use_primary else []) + ['c'],
             input=b'' #, check=True
         )
 
@@ -270,13 +270,13 @@ class CCCPBackend(InputBackend):
 
         if self._get_buffer() == self._buffer_bytes:  # no outside modifications
             subprocess.run(
-                ['cccp', '--primary', '--append', 'c'] if self._use_primary else ['cccp', '--append', 'c'],
+                ['cccp'] + (['--primary'] if self._use_primary else []) + ['--append', 'c'],
                 input=b #, check=True
             )
             self._buffer_bytes += b
         else:  # clipboard modified by another app
             subprocess.run(
-                ['cccp', '--primary', 'c'] if self._use_primary else ['cccp', 'c'],
+                ['cccp'] + (['--primary'] if self._use_primary else []) + ['c'],
                 input=b #, check=True
             )
             self._buffer_bytes = b
