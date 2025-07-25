@@ -13,6 +13,12 @@ typo:
       - "Fig":   "\u2012"
       - "EM":    "\u2014"
       - "Quot":  "\u2015"
+  - "Bullets":
+      - "• Bllet":   "\u2022"
+      - "◦ White bullet": "\u25E6"
+      - "‣ Triang bullet": "\u2023"
+      - "⁃ Hyphen bullet": "\u2043"
+      - "∙ Dot product": "\u2219"
   - ¹
   - ²
   - ³
