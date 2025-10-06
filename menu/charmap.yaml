@@ -14,11 +14,18 @@ typo:
       - "EM":    "\u2014"
       - "Quot":  "\u2015"
   - "Bullets":
-      - "• Bllet":   "\u2022"
-      - "◦ White bullet": "\u25E6"
-      - "‣ Triang bullet": "\u2023"
-      - "⁃ Hyphen bullet": "\u2043"
-      - "∙ Dot product": "\u2219"
+      - "Bllet":   "\u2022"
+      - "White bullet": "\u25E6"
+      - "Triang bullet": "\u2023"
+      - "Hyphen bullet": "\u2043"
+      - "Dot product": "\u2219"
+  - "Checkboxes":
+      - "Ballot []":   "\u2610"
+      - "Ballot V":   "\u2611"
+      - "Ballot X":   "\u2611"
+      - "Check mark": "\u2713"
+      - "CHECK mark": "\u2714"
+      - "White CHECK mark": "\u2705"
   - ¹
   - ²
   - ³
