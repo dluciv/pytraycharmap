@@ -20,9 +20,9 @@ typo:
       - "Hyphen bullet": "\u2043"
       - "Dot product": "\u2219"
   - "Checkboxes":
-      - "Ballot []":   "\u2610"
+      - "Ballot []":  "\u2610"
       - "Ballot V":   "\u2611"
-      - "Ballot X":   "\u2611"
+      - "Ballot X":   "\u2612"
       - "Check mark": "\u2713"
       - "CHECK mark": "\u2714"
       - "White CHECK mark": "\u2705"
