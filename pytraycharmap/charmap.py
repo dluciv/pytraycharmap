@@ -8,6 +8,7 @@ multiple char selection with any key while hovered.
 
 import os
 import sys
+import time
 import subprocess
 import yaml
 from abc import ABC, abstractmethod
@@ -17,6 +18,7 @@ from PyQt6.QtCore import QThread
 __author__ = 'Dmitry V. Luciv'
 __license__ = 'WTFPL v2'
 __version__ = '0.8.0'
+
 
 class KeyEventFilter(QtCore.QObject):
     def __init__(self, notifiable):
@@ -291,7 +293,8 @@ class WTypeBackend(InputBackend):
             self.key = key
 
         def run(self):
-            result = subprocess.run(["wtype", "-s", "100", self.key], capture_output=True, text=True)
+            time.sleep(0.25)
+            result = subprocess.run(["wtype", "-s", "125", self.key], capture_output=True, text=True)
             if result.returncode != 0:
                 print(result.stdout)
                 print(result.stderr, file=sys.stderr)
