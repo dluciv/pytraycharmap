@@ -2,10 +2,10 @@ typo:
   - "[] NBSP": "\u00A0"
   - ">< NBSP": "\u202F"
   - "Quot":
-      - "«»"
-      - "„“"
-      - "“”"
-      - "‘’"
+      - "Angle quotation marks (guillemets)": "«»"
+      - "German quotation marks (low/high)": "„“"
+      - "Curly double quotation marks": "“”"
+      - "Curly single quotation marks": "‘’"
   - "Dashes":
       - "hyp":   "\u2010"
       - "NBhyp": "\u2011"
@@ -26,230 +26,230 @@ typo:
       - "Check mark": "\u2713"
       - "CHECK mark": "\u2714"
       - "White CHECK mark": "\u2705"
-  - ¹
-  - ²
-  - ³
-  - "…"
+  - "Superscript One": "¹"
+  - "Superscript Two": "²"
+  - "Superscript Three": "³"
+  - "Horizontal Ellipsis": "…"
   - Misc:
-      - ©
-      - ®
-      - ℗
-      - ℠
-      - ™
-      - æ
-      - ¶
+      - "Copyright Sign": "©"
+      - "Registered Sign": "®"
+      - "Sound Recording Copyright": "℗"
+      - "Service Mark": "℠"
+      - "Trade Mark Sign": "™"
+      - "Lat Ae": "æ"
+      - "Pilcrow Sign": "¶"
 
 Measures/Math:
   Degrees:
-    - K
-    - ℃
-    - ℉
-    - °
-    - ′
-    - ″
-    - ‴
+    - "Kelvin": "K"
+    - "Celsius": "℃"
+    - "Fahrenheit": "℉"
+    - "Degree": "°"
+    - "Minute": "′"
+    - "Second": "″"
+    - "Second/60": "‴"
   Symbols:
-    - ‰
-    - ‱
-    - √
-    - ∀
-    - ∃
-    - ∞
-    - ≤
-    - ≡
-    - ≥
-    - ≠
-    - ≈
+    - "Per Mille": "‰"
+    - "Per Ten Thousand": "‱"
+    - "Square Root": "√"
+    - "For All": "∀"
+    - "Exists": "∃"
+    - "Infinity": "∞"
+    - "Less-Than Or Equal To (le)": "≤"
+    - "Identical To": "≡"
+    - "Greater-Than Or Equal To (ge)": "≥"
+    - "Not Equal To (ne)": "≠"
+    - "Almost Equal To (approx)": "≈"
   Operators:
-    - ·
-    - −
-    - ±
-    - ×
-    - ÷
-    - ⋮
+    - "Middle Dot": "·"
+    - "Minus Sign": "−"
+    - "Plus-Minus Sign": "±"
+    - "Multiplication Sign": "×"
+    - "Division Sign": "÷"
+    - "Vertical Ellipsis": "⋮"
   Integrals:
-    - ∫
-    - ∬
-    - ∭
-    - ∮
+    - "Integral": "∫"
+    - "Double Integral": "∬"
+    - "Triple Integral": "∭"
+    - "Contour Integral": "∮"
 
 Numbers:
   Fractions:
-    - ¼
-    - ½
-    - ¾
-    - ⅓
-    - ⅔
-    - ⅕
-    - ⅖
-    - ⅗
-    - ⅘
-    - ⅙
-    - ⅚
-    - ⅜
-    - ⅝
-    - ⅞
-    - ⅟
+    - "1/4": "¼"
+    - "1/2": "½"
+    - "3/4": "¾"
+    - "1/3": "⅓"
+    - "2/3": "⅔"
+    - "1/5": "⅕"
+    - "2/5": "⅖"
+    - "3/5": "⅗"
+    - "4/5": "⅘"
+    - "1/6": "⅙"
+    - "5/6": "⅚"
+    - "3/8": "⅜"
+    - "5/8": "⅝"
+    - "7/8": "⅞"
+    - "1/": "⅟"
   Roman:
-    - Ⅰ
-    - Ⅱ
-    - Ⅲ
-    - Ⅳ
-    - Ⅴ
-    - Ⅵ
-    - Ⅶ
-    - Ⅷ
-    - Ⅸ
-    - Ⅹ
-    - Ⅺ
-    - Ⅻ
-    - Ⅼ
-    - Ⅽ
-    - Ⅾ
-    - Ⅿ
+    - "Roman 1": "Ⅰ"
+    - "Roman 2": "Ⅱ"
+    - "Roman 3": "Ⅲ"
+    - "Roman 4": "Ⅳ"
+    - "Roman 5": "Ⅴ"
+    - "Roman 6": "Ⅵ"
+    - "Roman 7": "Ⅶ"
+    - "Roman 8": "Ⅷ"
+    - "Roman 9": "Ⅸ"
+    - "Roman 10": "Ⅹ"
+    - "Roman 11": "Ⅺ"
+    - "Roman 12": "Ⅻ"
+    - "Roman 50": "Ⅼ"
+    - "Roman 100": "Ⅽ"
+    - "Roman 500": "Ⅾ"
+    - "Roman 1000": "Ⅿ"
 
 Characters:
-  Latin:
-    - Æ
-    - æ
-    - Ä
-    - Ë
-    - Ö
-    - Ü
-    - ä
-    - æ
-    - ö
-    - ü
-    - ß
-  Cyrillic:
-    - І
-    - Ї
-    - Љ
-    - Њ
-    - ђ
-    - і
-    - ї
-    - љ
-    - њ
-    - ћ
-    - Ѡ
-    - Ѣ
-    - Ѥ
-    - Ѧ
-    - Ѳ
-    - Ѵ
-    - "\u0524"
-    - ѡ
-    - ѣ
-    - ѥ
-    - ѧ
-    - ѳ
-    - ѵ
-    - "\u0525"
+  Lat:
+    - "AE": "Æ"
+    - "ae": "æ"
+    - "A with Diaeresis": "Ä"
+    - "E with Diaeresis": "Ë"
+    - "O with Diaeresis": "Ö"
+    - "U with Diaeresis": "Ü"
+    - "a with Diaeresis": "ä"
+    - "o with Diaeresis": "ö"
+    - "u with Diaeresis": "ü"
+    - "Small Sharp S": "ß"
+  Cyr:
+    - "Cyr Cap Byelorussian-Ukrainian I": "І"
+    - "Cyr Cap Yi": "Ї"
+    - "Cyr Cap Lje": "Љ"
+    - "Cyr Cap Nje": "Њ"
+    - "Cyr Dje": "ђ"
+    - "Cyr Byelorussian-Ukrainian I": "і"
+    - "Cyr Yi": "ї"
+    - "Cyr Lje": "љ"
+    - "Cyr Nje": "њ"
+    - "Cyr Tshe": "ћ"
+    - "Cyr Cap Omega": "Ѡ"
+    - "Cyr Cap Yat": "Ѣ"
+    - "Cyr Cap Iotified E": "Ѥ"
+    - "Cyr Cap Little Yus": "Ѧ"
+    - "Cyr Cap Fita": "Ѳ"
+    - "Cyr Cap Izhitsa": "Ѵ"
+    - "Cyr Cap Pe With Descender": "Ԥ"
+    - "Cyr Omega": "ѡ"
+    - "Cyr Yat": "ѣ"
+    - "Cyr Iotified E": "ѥ"
+    - "Cyr Little Yus": "ѧ"
+    - "Cyr Fita": "ѳ"
+    - "Cyr Izhitsa": "ѵ"
+    - "Cyr Pe With Descender": "ԥ"
   CyStressed:
     Upper:
-      - А́
-      - Я́
-      - Э́
-      - Е́
-      - Ы́
-      - И́
-      - О́
-      - Ё́
-      - У́
-      - Ю́
+      - "Cyr Cap A with acute": "А́"
+      - "Cyr Cap Ya with acute": "Я́"
+      - "Cyr Cap E with acute": "Э́"
+      - "Cyr Cap Ie with acute": "Е́"
+      - "Cyr Cap Yeru with acute": "Ы́"
+      - "Cyr Cap I with acute": "И́"
+      - "Cyr Cap O with acute": "О́"
+      - "Cyr Cap Io with acute": "Ё́"
+      - "Cyr Cap U with acute": "У́"
+      - "Cyr Cap Yu with acute": "Ю́"
     Lower:
-      - а́
-      - я́
-      - э́
-      - е́
-      - ы́
-      - и́
-      - о́
-      - ё́
-      - у́
-      - ю́
-  Greek:
+      - "Cyr A with acute": "а́"
+      - "Cyr Ya with acute": "я́"
+      - "Cyr E with acute": "э́"
+      - "Cyr Ie with acute": "е́"
+      - "Cyr Yeru with acute": "ы́"
+      - "Cyr I with acute": "и́"
+      - "Cyr O with acute": "о́"
+      - "Cyr Io with acute": "ё́"
+      - "Cyr U with acute": "у́"
+      - "Cyr Yu with acute": "ю́"
+  Grk:
     Upper:
-      - Α
-      - Β
-      - Γ
-      - Δ
-      - Ε
-      - Ζ
-      - Η
-      - Θ
-      - Ι
-      - Κ
-      - Λ
-      - Μ
-      - Ν
-      - Ξ
-      - Ο
-      - Π
-      - Ρ
-      - _
-      - Σ
-      - Τ
-      - Υ
-      - Φ
-      - Χ
-      - Ψ
-      - Ω
-      - Ϊ
-      - Ϋ
+      - "Grk Cap Alpha": "Α"
+      - "Grk Cap Beta": "Β"
+      - "Grk Cap Gamma": "Γ"
+      - "Grk Cap Delta": "Δ"
+      - "Grk Cap Epsilon": "Ε"
+      - "Grk Cap Zeta": "Ζ"
+      - "Grk Cap Eta": "Η"
+      - "Grk Cap Theta": "Θ"
+      - "Grk Cap Iota": "Ι"
+      - "Grk Cap Kappa": "Κ"
+      - "Grk Cap Lamda": "Λ"
+      - "Grk Cap Mu": "Μ"
+      - "Grk Cap Nu": "Ν"
+      - "Grk Cap Xi": "Ξ"
+      - "Grk Cap Omicron": "Ο"
+      - "Grk Cap Pi": "Π"
+      - "Grk Cap Rho": "Ρ"
+      - "Low line (underscore)": "_"
+      - "Grk Cap Sigma": "Σ"
+      - "Grk Cap Tau": "Τ"
+      - "Grk Cap Upsilon": "Υ"
+      - "Grk Cap Phi": "Φ"
+      - "Grk Cap Chi": "Χ"
+      - "Grk Cap Psi": "Ψ"
+      - "Grk Cap Omega": "Ω"
+      - "Grk Cap Iota With Dialytika": "Ϊ"
+      - "Grk Cap Upsilon With Dialytika": "Ϋ"
     Lower:
-      - α
-      - β
-      - γ
-      - δ
-      - ε
-      - ζ
-      - η
-      - θ
-      - ι
-      - κ
-      - λ
-      - μ
-      - ξ
-      - ο
-      - π
-      - ρ
-      - ς
-      - σ
-      - τ
-      - υ
-      - φ
-      - χ
-      - ψ
-      - ω
-      - ϊ
-      - ϋ
+      - "Grk Alpha": "α"
+      - "Grk Beta": "β"
+      - "Grk Gamma": "γ"
+      - "Grk Delta": "δ"
+      - "Grk Epsilon": "ε"
+      - "Grk Zeta": "ζ"
+      - "Grk Eta": "η"
+      - "Grk Theta": "θ"
+      - "Grk Iota": "ι"
+      - "Grk Kappa": "κ"
+      - "Grk Lamda": "λ"
+      - "Grk Mu": "μ"
+      - "Grk Xi": "ξ"
+      - "Grk Omicron": "ο"
+      - "Grk Pi": "π"
+      - "Grk Rho": "ρ"
+      - "Grk Final Sigma": "ς"
+      - "Grk Sigma": "σ"
+      - "Grk Tau": "τ"
+      - "Grk Upsilon": "υ"
+      - "Grk Phi": "φ"
+      - "Grk Chi": "χ"
+      - "Grk Psi": "ψ"
+      - "Grk Omega": "ω"
+      - "Grk Iota With Dialytika": "ϊ"
+      - "Grk Upsilon With Dialytika": "ϋ"
   Esperanto:
-    - Ĉ
-    - Ĝ
-    - Ĥ
-    - Ĵ
-    - Ŝ
-    - Ŭ
-    - ĉ
-    - ĝ
-    - ĥ
-    - ĵ
-    - ŝ
-    - ŭ
+    - "Lat Cap C With Circumflex": "Ĉ"
+    - "Lat Cap G With Circumflex": "Ĝ"
+    - "Lat Cap H With Circumflex": "Ĥ"
+    - "Lat Cap J With Circumflex": "Ĵ"
+    - "Lat Cap S With Circumflex": "Ŝ"
+    - "Lat Cap U With Breve": "Ŭ"
+    - "Lat C With Circumflex": "ĉ"
+    - "Lat G With Circumflex": "ĝ"
+    - "Lat H With Circumflex": "ĥ"
+    - "Lat J With Circumflex": "ĵ"
+    - "Lat S With Circumflex": "ŝ"
+    - "Lat U With Breve": "ŭ"
 
-Currecny:
-  - "\u20BD"
-  - €
-  - ¢
-  - £
-  - ¤
-  - ¥
-  - ₵
-  - ₤
-  - ₪
-  - ₠
+Currency:
+  - "Рубль": "₽"
+  - "Цифрофой Рубль": "₽⃝"
+  - "Euro Sign": "€"
+  - "Cent Sign": "¢"
+  - "Pound Sign": "£"
+  - "Currency Sign": "¤"
+  - "Yen Sign": "¥"
+  - "Cedi Sign": "₵"
+  - "Lira Sign": "₤"
+  - "New Sheqel Sign": "₪"
+  - "Euro-Currency Sign": "₠"
 
 Emoji:
   - "Thumb Up": "👍"

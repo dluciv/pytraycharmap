@@ -16,6 +16,38 @@ You are free to modify menu in `menu/charmap.yaml` file.
 
 On UNiX-like system just run `run.sh &`, on Windows `run.bat`.
 
+fzf frontend
+============
+
+If you prefer a keyboard-driven, searchable list over the tray menu,
+there is also an fzf-based frontend that reuses the very same
+`menu/charmap.yaml`:
+
+```
+./run-fzf.sh
+# or
+python3 fzfcharmap.py [path/to/charmap.yaml]
+```
+
+The string you are building is shown in the fzf border label, so the
+input line stays free for the search query:
+
+* `Tab`   -- append the highlighted character to the string;
+* `Enter` -- copy the string (or the highlighted character when the
+             string is still empty) to the clipboard;
+* `F5`    -- copy it to the primary selection instead;
+* `Esc`   -- quit without copying.
+
+`Enter` and `F5` are just defaults and can be changed, e.g.:
+
+```
+FZFCHARMAP_PRIMARY=ctrl-o ./run-fzf.sh
+```
+
+The frontend needs `fzf` (>= 0.37, for `transform-border-label`) and
+`cccp` in `$PATH`. The only Python dependency is PyYAML, already used by
+the tray version; Qt is not needed.
+
 Installation
 ============
 
